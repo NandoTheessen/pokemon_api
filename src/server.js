@@ -12,6 +12,12 @@ server.use(helmet());
 server.use(cors());
 server.use(morgan('dev'));
 
+server.route('/').get((req, res) => {
+  res.status(200).json({
+    message:
+      'Use the /api/{yourPokemonName} endpoint to query pokemon abilities! 🙂'
+  });
+});
 server.route('/api/:name').get(getAbilities);
 
 module.exports = server;
