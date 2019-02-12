@@ -1,20 +1,33 @@
 const db = require('../dbconfig');
 
-async function getPokemonByName(name) {
-  console.log(db('pokemon'));
-  const query = db('pokemon')
-    .where('name', name)
-    .join('abilites', { 'pokemon.ability_1': 'abilites.ability_id' })
-    .join('abilites', { 'pokemon.ability_2': 'abilites.ability_id' })
-    .join('abilites', { 'pokemon.ability_3': 'abilites.ability_id' })
+async function getAbilitiesByName(name) {
+  return db('pokemon')
+    .where('pokemon.name', name)
+    .join('abilities', 'pokemon.id', '=', 'abilities.pokemon_id')
     .select(
       'pokemon.name',
-      'ability_1.name',
-      'ability_2.name',
-      'ability_3.name'
+      'abilities.name',
+      'abilities.slot',
+      'abilities.is_hidden'
     );
-
-  return query;
 }
 
-module.exports = getPokemonByName;
+async function addResponseToCache(name, abilities) {
+  try {
+    const id = await db('pokemon').insert({ name });
+    const newAbilities = abilities.map(ability => {
+      return {
+        name: ability.ability.name,
+        is_hidden: ability.is_hidden,
+        pokemon_id: id[0],
+        url: ability.ability.url,
+        slot: ability.slot
+      };
+    });
+    await db('abilities').insert(newAbilities);
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = { getAbilitiesByName, addResponseToCache };
