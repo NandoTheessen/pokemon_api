@@ -15,7 +15,7 @@ module.exports = {
       directory: './data/seeds'
     }
   },
-  staging: {
+  production: {
     client: 'pg',
     connection: db_url,
     useNullAsDefault: true,
