@@ -1,6 +1,6 @@
 // Update with your config settings.
 require('dotenv').config();
-const db_url = process.env.db_url;
+const db_url = process.env.DATABASE_URL;
 module.exports = {
   development: {
     client: 'sqlite3',
