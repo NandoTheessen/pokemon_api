@@ -6,10 +6,6 @@ const API = process.env.API || 'https://pokeapi.co/api/v2/pokemon';
 const getAbilities = async (req, res) => {
   try {
     const { name } = req.params;
-    // Some input validation
-    if (!name) {
-      res.status(400).json({ message: 'Please name a pokemon!' });
-    }
 
     // Determine if the abilities exist on cache
     let abilities = await PokemonModel.getAbilitiesByName(name.toLowerCase());

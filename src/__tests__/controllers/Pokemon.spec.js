@@ -33,4 +33,16 @@ describe('API returns correct responses when queried', () => {
         done();
       });
   });
+  test('should return 404 & message if pokemon does not exist', () => {
+    request(server)
+      .get('/api/randomThing/')
+      .expect(404)
+      .then(({ body }) => {
+        expect(body).toHaveProperty(
+          'message',
+          'This pokemon does not exist ☹️'
+        );
+        done();
+      });
+  });
 });
