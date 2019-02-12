@@ -17,7 +17,6 @@ async function addResponseToCache(name, abilities) {
   try {
     const id = await db('pokemon').insert({ name });
     const newAbilities = abilities.map(ability => {
-      console.log(ability.ability, 'as mapped over');
       return {
         name: ability.ability.name,
         is_hidden: ability.is_hidden,

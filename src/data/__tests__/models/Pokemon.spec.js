@@ -2,28 +2,24 @@ const model = require('../../models/pokemon');
 const testDB = require('../../dbconfig');
 
 beforeAll(async () => {
-  try {
-    await testDB.migrate.rollback();
-    await testDB.migrate.latest();
-    await testDB('pokemon').insert({ name: 'raichu' });
-    await testDB('abilities').insert([
-      {
-        name: 'lightning-rod',
-        is_hidden: true,
-        pokemon_id: 1,
-        url: 'https://pokeapi.co/api/v2/ability/31/',
-        slot: 3
-      },
-      {
-        name: 'static',
-        pokemon_id: 1,
-        url: 'https://pokeapi.co/api/v2/ability/9/',
-        slot: 1
-      }
-    ]);
-  } catch (e) {
-    console.log('Error when inserting data into db', e);
-  }
+  await testDB.migrate.rollback();
+  await testDB.migrate.latest();
+  await testDB('pokemon').insert({ name: 'raichu' });
+  await testDB('abilities').insert([
+    {
+      name: 'lightning-rod',
+      is_hidden: true,
+      pokemon_id: 1,
+      url: 'https://pokeapi.co/api/v2/ability/31/',
+      slot: 3
+    },
+    {
+      name: 'static',
+      pokemon_id: 1,
+      url: 'https://pokeapi.co/api/v2/ability/9/',
+      slot: 1
+    }
+  ]);
 });
 
 describe('getAbilitiesByName', () => {
