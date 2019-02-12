@@ -5,12 +5,6 @@ exports.up = function(knex, Promise) {
       .unique()
       .primary();
     table.string('name').unique();
-    table.integer('ability_1').unsigned();
-    table.foreign('ability_1').references('abilities.ability_id');
-    table.integer('ability_2').unsigned();
-    table.foreign('ability_2').references('abilities.ability_id');
-    table.integer('ability_3').unsigned();
-    table.foreign('ability_3').references('abilities.ability_id');
   });
 };
 

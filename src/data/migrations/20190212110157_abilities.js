@@ -4,6 +4,8 @@ exports.up = function(knex, Promise) {
       .increments('ability_id')
       .primary()
       .unique();
+    table.integer('pokemon_id');
+    table.foreign('pokemon_id').references('pokemon.id');
     table.string('name');
     table.boolean('is_hidden');
     table.integer('slot');
