@@ -12,7 +12,7 @@ const getAbilities = async (req, res) => {
     }
 
     // Determine if the abilities exist on cache
-    let abilities = await PokemonModel.getAbilitiesByName(name);
+    let abilities = await PokemonModel.getAbilitiesByName(name.toLowerCase());
     let fromCache = true;
 
     if (abilities.length === 0) {
@@ -20,7 +20,7 @@ const getAbilities = async (req, res) => {
       fromCache = false;
       const pokemon = await fetchData(`${API}/${name.toLowerCase()}`);
       abilities = pokemon.abilities;
-      PokemonModel.addResponseToCache(name, abilities);
+      PokemonModel.addResponseToCache(name.toLowerCase(), abilities);
     }
 
     res.status(200).json({ name: name, abilities, fromCache });
