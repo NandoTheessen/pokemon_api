@@ -1,3 +1,5 @@
 node_modules
 .env
 /src/data/dev.sqlite3
+/src/data/test.sqlite3
+coverage
