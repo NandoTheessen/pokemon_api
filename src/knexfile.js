@@ -1,8 +1,5 @@
 require('dotenv').config();
-const pg = require('pg');
-pg.defaults.ssl = true;
 
-const db_url = process.env.DATABASE_URL;
 module.exports = {
   development: {
     client: 'sqlite3',
@@ -16,7 +13,7 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: db_url,
+    connection: process.env.DATABASE_URL,
     useNullAsDefault: true,
     migrations: {
       directory: './data/migrations'
